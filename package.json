@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "to running thing base on tik and tok",
   "author": "bichi <bichi@pjfactory.com>",
-  "private": true,
+  "license": "MIT",
   "main": "dist/app.js",
   "scripts": {
     "test": "./node_modules/mocha/bin/_mocha --recursive -R spec",
