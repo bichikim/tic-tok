@@ -6,11 +6,14 @@ export type TRun = (...args:any[]) => Promise<{[name:string]:any}>
 export type TCallback = (...args:any[]) => void
 
 export class Run implements IPromise{
+  protected _runningFlag?:boolean
   private _myList:Promise<any>[]
   private _then?:TCallback
   private _catch?:TCallback
+
   constructor(list:TRun[], ...args:any[]){
     this._myList = this._getRunners(list, ...args)
+    this._runningFlag = false
   }
 
   then(resolve:TCallback):void{
@@ -22,6 +25,7 @@ export class Run implements IPromise{
   }
 
   start(){
+    this._runningFlag = true
     this._start()
   }
 
@@ -46,8 +50,10 @@ export class Run implements IPromise{
   }
   protected _start(){
     Promise.all(this._list).then((result:any) => {
+      this._runningFlag = false
       this._resolve(result)
     }).catch((error:any) => {
+      this._runningFlag = false
       this._reject(error)
     })
   }

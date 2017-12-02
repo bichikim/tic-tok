@@ -39,6 +39,7 @@ export class Loop extends Run implements ILoop{
           if(typeof _stopThen === 'function'){
             this._stop = -1
             this._stopThen = null
+            this._runningFlag = false
             _stopThen()
           }
           return
@@ -46,6 +47,7 @@ export class Loop extends Run implements ILoop{
         this._start()
       }, this._delay)
     }).catch((error:any) => {
+      this._runningFlag = false
       this._reject(error)
     })
   }

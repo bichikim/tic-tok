@@ -6,12 +6,10 @@ export interface IStep extends IPromise{
 }
 export class Step extends Run implements IStep{
   private _delay
-  private _runningFlag
   private _nextList
-  constructor(list:TRun[], ...args:any[]){
-    super(list, ...args)
+  constructor(list?:TRun[], ...args:any[]){
+    super(typeof list !== 'undefined' ? list : [], ...args)
     this._delay = 0
-    this._runningFlag = true
     this._nextList = []
   }
 
@@ -28,13 +26,16 @@ export class Step extends Run implements IStep{
     if(this._runningFlag){
       this._nextList.push(list)
     }else{
-      this._runningFlag = true
       this._list = list
-      this._start()
+      this.start()
     }
   }
 
   protected _start(){
+    if(this._list.length < 1){
+      this._runningFlag = false
+      return
+    }
     Promise.all(this._list).then((result:any) => {
       setTimeout(() => {
         this._resolve(result)
@@ -46,6 +47,8 @@ export class Step extends Run implements IStep{
         this._start()
       }, this._delay)
     }).catch((error:any) => {
+      this._runningFlag = false
+      this._list = []
       this._reject(error)
     })
   }

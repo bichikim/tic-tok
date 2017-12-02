@@ -77,7 +77,7 @@ module.exports = {
     'typescript/explicit-member-accessibility': 'off',
     'typescript/interface-name-prefix': ['error', 'always'],
     'typescript/member-delimiter-style': 'off',
-    'typescript/member-naming': ['error', {'private': '^_'}],
+    'typescript/member-naming': ['error', {'private': '^_', 'protected': '^_'}],
     'typescript/member-ordering': 'off',
     'typescript/no-angle-bracket-type-assertion': 'error',
     'typescript/no-array-constructor': 'error',
