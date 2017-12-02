@@ -4,7 +4,8 @@
 
 [typescript]:https://img.shields.io/badge/typescript-2.6.*-blue.svg
 
-# Tic - tok
+
+# [Tic - tok](https://www.youtube.com/watch?v=iP6XpLQM2Cs)
 
 > Tic Tok, on the clock
 
