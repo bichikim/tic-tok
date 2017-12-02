@@ -17,12 +17,16 @@ export class Run implements IPromise{
   }
 
   then(resolve:TCallback):IPromise{
-    this._then = resolve
+    if(!this._then){
+      this._then = resolve
+    }
     return this
   }
 
   catch(resolve:TCallback):IPromise{
-    this._catch = resolve
+    if(!this._catch){
+      this._catch = resolve
+    }
     return this
   }
 
