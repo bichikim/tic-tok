@@ -2,7 +2,7 @@
   "name": "tiktok",
   "version": "0.0.1",
   "description": "to running thing base on tik and tok",
-  "author": "bichi <bichi@pjfactory.com>",
+  "author": "bichi <bichi@live.co.kr>",
   "license": "MIT",
   "main": "dist/app.js",
   "scripts": {
