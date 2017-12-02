@@ -15,7 +15,7 @@
 
 ## Install
 ``
-npm install --save tictok
+npm install --save tiktok
 ``
 
 ## How to use
