@@ -22,7 +22,6 @@ npm install --save tictok
 ````javascript
 require('babel-polyfill')
 const {Run, Loop, Step} = require('../dist/app.js')
-console.log(Run)
 const runners = [
   (a) => {
     return new Promise((resolve, reject) => {
