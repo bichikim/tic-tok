@@ -27,27 +27,34 @@ export class Loop extends Run implements ILoop{
     this._stop = times
   }
 
-  protected _start(){
-    if(this._stop > 0){
+  protected _ableToStart(){
+    if(this._stop === 0){
+      const {_stopThen} = this
+      if(typeof _stopThen === 'function'){
+        this._stop = -1
+        this._stopThen = null
+        _stopThen()
+      }
+      return false
+    }else if(this._stop > 0){
       this._stop -= 1
+      return true
+    }
+    return true
+  }
+
+  protected _start(){
+    if(!this._ableToStart()){
+      this._done()
+      return
     }
     Promise.all(this._list).then((result:any) => {
       setTimeout(() => {
         this._resolve(result)
-        if(this._stop === 0){
-          const {_stopThen} = this
-          if(typeof _stopThen === 'function'){
-            this._stop = -1
-            this._stopThen = null
-            this._runningFlag = false
-            _stopThen()
-          }
-          return
-        }
         this._start()
       }, this._delay)
     }).catch((error:any) => {
-      this._runningFlag = false
+      this._done()
       this._reject(error)
     })
   }

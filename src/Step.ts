@@ -31,24 +31,25 @@ export class Step extends Run implements IStep{
     }
   }
 
+  protected _done(){
+    super._done()
+    this._list = []
+  }
+
   protected _start(){
-    if(this._list.length < 1){
-      this._runningFlag = false
-      return
-    }
+    if(!this._ableToStart()){return}
     Promise.all(this._list).then((result:any) => {
       setTimeout(() => {
         this._resolve(result)
         if(this._nextList.length < 1){
-          this._runningFlag = false
+          this._done()
           return
         }
         this._list = this._nextList.pop()
         this._start()
       }, this._delay)
     }).catch((error:any) => {
-      this._runningFlag = false
-      this._list = []
+      this._done()
       this._reject(error)
     })
   }

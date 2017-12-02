@@ -20,6 +20,12 @@ npm install --save tiktok
 
 ## How to use
 ````javascript
+/**
+ *
+ * @author Bichi Kim [bichi@pjfactory.com]
+ * @copyright (c) PJ Factory Co.
+ * @license Private
+ */
 require('babel-polyfill')
 const {Run, Loop, Step} = require('../dist/app.js')
 const runners = [
@@ -60,6 +66,8 @@ const run = new Run(runners, 'foo')
 run.start()
 run.then((a) => {
   console.log(a)
+}).catch((error) => {
+  console.log('--', error)
 })
 
 const loop = new Loop(runners, 'bar')
@@ -67,6 +75,8 @@ loop.delay(500)
 
 loop.then((a) => {
   console.log(a)
+}).catch((error) => {
+  console.log('----', error)
 })
 
 loop.stopAfter(7, () => {
@@ -76,6 +86,8 @@ loop.start()
 const step = new Step(runners, 'con')
 step.then((a) => {
   console.log(a)
+}).catch((error) => {
+  console.log(error)
 })
 step.start()
 
